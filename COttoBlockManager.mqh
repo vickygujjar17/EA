@@ -4,7 +4,7 @@
 //|              OTTO EA — exact Pine v4.70 block logic port          |
 //+------------------------------------------------------------------+
 #property copyright "OTTO EA"
-#property version   "4.85"
+#property version   "4.86"
 
 #ifndef __OTTO_BLOCK_MANAGER__
 #define __OTTO_BLOCK_MANAGER__

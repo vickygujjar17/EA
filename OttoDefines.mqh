@@ -4,8 +4,8 @@
 //|         Exact MQL5 port of Pine Script "prop_guard_tester.pine"   |
 //+------------------------------------------------------------------+
 #property copyright "OTTO EA"
-#property version   "4.85"
-#property description "Build v4.85 - Pyramiding, Breakeven & ATR Trail Logic Update"
+#property version   "4.86"
+#property description "Build v4.86 - Updated pyramiding logic, improved breakeven calculation, and enhanced ATR trailing stop."
 #property description "Features:"
 #property description "- Advanced Entry Strategy: S/R blocks based on Wick1+Wick2 formations."
 #property description "- Comprehensive Veto Funnel: Filters entries (sizing, separation, momentum, FVG, staleness, front-run, near-miss)."
