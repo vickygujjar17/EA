@@ -79,7 +79,6 @@ datetime g_lastBarTime      = 0;
 // --- Prop Firm Safety State ---
 double   g_initialBalance      = 0;
 double   g_midnightBalance     = 0;
-double   g_dailyEquityHigh     = 0;
 datetime g_lastMidnightCheck   = 0;
 bool     g_dailyDD_Paused      = false;
 bool     g_totalDD_Halted      = false;
@@ -178,7 +177,6 @@ int OnInit(void)
    // --- Prop firm safety state ---
    g_initialBalance   = AccountInfoDouble(ACCOUNT_BALANCE);
    g_midnightBalance  = g_initialBalance;
-   g_dailyEquityHigh  = AccountInfoDouble(ACCOUNT_EQUITY);
    g_dailyDD_Paused   = false;
    g_totalDD_Halted   = false;
    MqlDateTime dt;
@@ -300,7 +298,6 @@ void CheckDailyReset(void)
    if(todayMidnight != g_lastMidnightCheck)
      {
       g_midnightBalance = AccountInfoDouble(ACCOUNT_BALANCE);
-      g_dailyEquityHigh = AccountInfoDouble(ACCOUNT_EQUITY);
       g_lastMidnightCheck = todayMidnight;
       if(g_dailyDD_Paused)
         {
@@ -587,9 +584,6 @@ void JournalCheckEvents(void)
      JournalWrite("TRADE CLOSED", "");
    g_lastHadTrade = nowActive;
   }
-void OnChartEvent(const int id, const long &lparam, const double &dparam, const string &sparam)
-  {
-  }
 
 //+------------------------------------------------------------------+
 //| OnTrade â€” re-sync active trade state on trade events             |
@@ -603,8 +597,4 @@ void OnTrade(void)
 //+------------------------------------------------------------------+
 //| OnTimer â€” reserved heartbeat                                      |
 //+------------------------------------------------------------------+
-void OnTimer(void)
-  {
-  }
 
-double   g_dailyEquityHigh     = 0;

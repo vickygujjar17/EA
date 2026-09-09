@@ -229,8 +229,6 @@ input ENUM_ENTRY_STYLE InpEntryStyle = ENTRY_MIDPOINT;  // Midpoint or Front Edg
 input double   InpArmATR          = 0.0;      // Arming distance (ATR) — 0 = instant arm
 input double   InpFixedRiskUSD    = 0.0;      // Fixed $ risk/trade (0 = use RiskPercent%)
 input bool     InpPyramidEnable   = true;     // Enable 3-tranche pyramiding (unified group SL)
-input double   InpPyramidT2Factor = 0.50;     // [legacy] Tranche 2 size factor (superseded by risk %)
-input double   InpPyramidT3Factor = 0.25;     // [legacy] Tranche 3 size factor (superseded by risk %)
 input double   InpRiskT1Pct       = 0.25;     // Tranche 1 risk % of equity
 input double   InpRiskT2Pct       = 0.12;     // Tranche 2 risk % of equity (at +1.0R)
 input double   InpRiskT3Pct       = 0.06;     // Tranche 3 risk % of equity (at +2.0R)
