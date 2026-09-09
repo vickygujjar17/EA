@@ -4,8 +4,8 @@
 //|         Exact MQL5 port of Pine Script "prop_guard_tester.pine"   |
 //+------------------------------------------------------------------+
 #property copyright "OTTO EA"
-#property version   "4.83"
-#property description "OTTO — Pine v4.70 Master Build (Wick1+Wick2 | Separation | Front-Run | Near-Miss | Stale Vetoes)"
+#property version   "4.84"
+#property description "OTTO EA v4.84 — Master Build Central Definitions"
 
 #ifndef __OTTO_DEFINES__
 #define __OTTO_DEFINES__
@@ -241,7 +241,7 @@ input int      MaxSpreadPoints    = 50;       // Max spread (points) for new ent
 input group "══════════════════════════════════════════════════"
 input group "  [7] NEWS SHIELD (real + simulated per Pine)"
 input group "══════════════════════════════════════════════════"
-input bool     EnableNewsFilter    = true;    // Real calendar blackout
+input bool     EnableNewsFilter    = false;   // Real calendar blackout
 input int      NewsMinutesBefore   = 5;       // Minutes before high-impact event
 input int      NewsMinutesAfter    = 5;       // Minutes after high-impact event
 input bool     InpSimNewsShield    = false;   // TRUE = absolute lockdown (Pine sim)

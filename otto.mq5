@@ -5,11 +5,11 @@
 //|                                    Institutional / Real-Money    |
 //+------------------------------------------------------------------+
 #property copyright "OTTO EA"
-#property version   "4.83"
-#property description "OTTO EA â€” Exact port of Pine v4.70 (Wick1+Wick2)"
+#property version   "4.84"
+#property description "OTTO EA — Exact port of Pine v4.84 (Wick1+Wick2)"
 #property description "Separation | Sizing | Front-Run | Near-Miss | Stale vetoes"
 #property description "Modules: News Shield | Risk | Block Manager | Order Mgmt | Trail"
-#property link      "https://github.com/otto"
+#property link      "https://github.com/vickygujjar17/EA"
 
 //+------------------------------------------------------------------+
 //| Includes                                                          |
@@ -67,6 +67,7 @@ datetime g_lastBarTime      = 0;
 // --- Prop Firm Safety State ---
 double   g_initialBalance      = 0;
 double   g_midnightBalance     = 0;
+double   g_dailyEquityHigh     = 0;
 datetime g_lastMidnightCheck   = 0;
 bool     g_dailyDD_Paused      = false;
 bool     g_totalDD_Halted      = false;
@@ -421,7 +422,7 @@ void OnTick(void)
    // ================================================================
    // STEP 1: Update News Filter (real calendar blackout)
    // ================================================================
-   g_newsFilter.Update();
+   //    g_newsFilter.Update();
 
    // ================================================================
    // STEP 2: NEW BAR â€” block formation + veto funnel (bar-close logic)
@@ -456,7 +457,7 @@ void OnTick(void)
    // STEP 4: ORDER PLACEMENT â€” Pine-gated limit orders for armed blocks
    // Gated further by news blackout + daily-DD pause.
    // ================================================================
-   if(!g_newsFilter.IsInNewsBlackout() && !g_dailyDD_Paused)
+   if(!g_dailyDD_Paused)
       g_orderManager.PlaceOrdersForArmedBlocks();
 
    // ================================================================

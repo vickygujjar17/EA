@@ -4,7 +4,7 @@
 //|            OTTO EA - Cut / Cost-BE / Lock3 / ATR Trail / Pyramiding |
 //+------------------------------------------------------------------+
 #property copyright "OTTO EA"
-#property version   "4.83"
+#property version   "4.84"
 
 #ifndef __OTTO_TRADE_MANAGER__
 #define __OTTO_TRADE_MANAGER__
@@ -128,35 +128,46 @@ public:
             double beSL = primaryEntry - beOffset;
             if(desiredSL > beSL) { desiredSL = beSL; m_breakevenTriggers++; }
            }
-         if(currentRR >= InpLock3RRR)
-           {
-            double strictLock = primaryEntry - (3.0 * rrUnit);
-            double dynamicTrail = low0 + (InpTrailATRMultiplier * atr);
-            double newSL = MathMin(strictLock, dynamicTrail);
-            if(newSL < desiredSL) desiredSL = newSL;
-           }
+            if(currentRR >= InpLock3RRR) // Use InpLock3RRR or InpTrailStartRR, assuming they are both 3.0
+              {
+               // Get current ATR value
+               double atr = GetCurrentATR();
+               if (atr > 0.0) // Prevent division by zero or erroneous calculations
+                 {
+                  // Calculate dynamic trailing SL based on current bar's low/high and ATR
+                  double trailSL = (dir == DIR_LONG) ? (iLow(m_symbol, PERIOD_CURRENT, 0) - (InpTrailATRMultiplier * atr))
+                                                     : (iHigh(m_symbol, PERIOD_CURRENT, 0) + (InpTrailATRMultiplier * atr));
+
+                  // Update desiredSL only if the new dynamic trail is more favorable (further in profit)
+                  if (dir == DIR_LONG && trailSL > desiredSL)
+                      desiredSL = trailSL;
+                  else if (dir == DIR_SHORT && trailSL < desiredSL)
+                      desiredSL = trailSL;
+                 }
+              }
         }
 
       // --- PYRAMID (unified group stop) ---
-      // Tranche 2 at +1.0R: add 50%% tranche, move ALL stops to entry +/- 0.5R
-      if(currentRR >= InpCutRiskRR && m_orderManager.IsPyramidPending(2))
-        {
-         if(m_orderManager.AddPyramidTranche(2))
-             {
-              double g2 = primaryEntry + (dir==DIR_LONG ? (0.5*rrUnit) : -(0.5*rrUnit));
-              m_orderManager.ApplyUnifiedSL(g2);
-              m_orderManager.LogGroupStop("Tranche 2 (+1.0R) - Half-Risk Lock", g2);
-             }
-        }
-      // Tranche 3 at +2.0R: add 25%% tranche, move ALL stops to cost-covering BE
-      if(currentRR >= InpBreakEvenRR && m_orderManager.IsPyramidPending(3))
+
+      // At +2.0R (Scale-in 1): Open the 2nd position (0.12% risk). Move unified SL to Breakeven.
+      if(currentRR >= InpBreakEvenRR && m_orderManager.IsPyramidPending(2))
         {
          double beOffset = CalcBasketFriction(dir==DIR_LONG);
          double groupBE = primaryEntry + (dir==DIR_LONG ? beOffset : -beOffset);
-         if(m_orderManager.AddPyramidTranche(3))
+         if(m_orderManager.AddPyramidTranche(2))
               {
                m_orderManager.ApplyUnifiedSL(groupBE);
-               m_orderManager.LogGroupStop("Tranche 3 (+2.0R) - Cost-Covering Breakeven", groupBE);
+               m_orderManager.LogGroupStop("Tranche 2 (+2.0R) - Cost-Covering Breakeven (with Friction)", groupBE);
+              }
+        }
+
+      // At +3.0R (Scale-in 2): Open the 3rd position (0.06% risk). Dynamic ATR trailing stop.
+      if(currentRR >= InpTrailStartRR && m_orderManager.IsPyramidPending(3))
+        {
+         if(m_orderManager.AddPyramidTranche(3))
+              {
+               // SL is managed by dynamic ATR trail at this point, no fixed SL modification here.
+               m_orderManager.LogGroupStop("Tranche 3 (+3.0R) - Scale-in, ATR Trail Active", 0);
               }
         }
       // Dynamic ATR Trail at +3.0R: apply SAME trailing SL to every ticket
