@@ -1,0 +1,24 @@
+# MQL5 compiled executables
+*.ex5
+*.fx5
+*.dll
+
+# MQL5 logs and temporary files
+/MQL5/Logs/
+/MQL5/Files/
+/MQL5/Profiles/
+/MQL5/Experts/*.log
+/MQL5/Indicators/*.log
+/MQL5/Scripts/*.log
+/MQL5/Presets/
+/MQL5/Tester/
+
+# Other common ignores
+.DS_Store
+.vscode/
+*.bak
+*.log
+*.err
+*.old
+*.gid
+*.mqproj
