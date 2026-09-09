@@ -4,7 +4,7 @@
 //|            OTTO EA - Cut / Cost-BE / Lock3 / ATR Trail / Pyramiding |
 //+------------------------------------------------------------------+
 #property copyright "OTTO EA"
-#property version   "4.84"
+#property version   "4.85"
 
 #ifndef __OTTO_TRADE_MANAGER__
 #define __OTTO_TRADE_MANAGER__

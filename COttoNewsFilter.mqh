@@ -4,7 +4,7 @@
 //|              OTTO EA — Institutional news blackout filter        |
 //+------------------------------------------------------------------+
 #property copyright "OTTO EA"
-#property version   "4.84"
+#property version   "4.85"
 
 #ifndef __OTTO_NEWS_FILTER__
 #define __OTTO_NEWS_FILTER__

@@ -4,8 +4,22 @@
 //|         Exact MQL5 port of Pine Script "prop_guard_tester.pine"   |
 //+------------------------------------------------------------------+
 #property copyright "OTTO EA"
-#property version   "4.84"
-#property description "OTTO EA v4.84 — Master Build Central Definitions"
+#property version   "4.85"
+#property description "Build v4.85 - Pyramiding, Breakeven & ATR Trail Logic Update"
+#property description "Features:"
+#property description "- Advanced Entry Strategy: S/R blocks based on Wick1+Wick2 formations."
+#property description "- Comprehensive Veto Funnel: Filters entries (sizing, separation, momentum, FVG, staleness, front-run, near-miss)."
+#property description "- Dynamic Trade Management:"
+#property description "  - Initial -1.0R Stop Loss."
+#property description "  - Half-Risk (SL to -0.5R) at +1.0R profit."
+#property description "  - Breakeven (SL to cost-covering) at +2.0R profit."
+#property description "  - Dynamic ATR Trailing Stop from +3.0R profit onwards."
+#property description "- Pyramiding Strategy: Scales into profitable trades (Tranche 2 at +2.0R, Tranche 3 at +3.0R)."
+#property description "- Robust Risk Management: Fixed USD or % equity risk, with margin checks."
+#property description "- Prop Firm Safety Buffers: Controls for daily and total drawdown limits."
+#property description "- News Filter: Pauses trading during high-impact news events (configurable)."
+#property description "- Correlation Filter: Manages portfolio risk for correlated currency pairs."
+#property description "- Detailed Journaling & Notifications: Extensive trade logging and email alerts."
 
 #ifndef __OTTO_DEFINES__
 #define __OTTO_DEFINES__

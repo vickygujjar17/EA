@@ -4,7 +4,7 @@
 //|              OTTO EA — Institutional portfolio filter            |
 //+------------------------------------------------------------------+
 #property copyright "OTTO EA"
-#property version   "4.84"
+#property version   "4.85"
 
 #ifndef __OTTO_CORRELATION_FILTER__
 #define __OTTO_CORRELATION_FILTER__
